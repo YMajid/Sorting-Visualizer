@@ -10,6 +10,7 @@ class SortingVisualizer extends React.Component {
     };
   }
 
+  //TODO: Need to change to componentDidMount
   componentWillMount() {
     this.resetValuesArray();
   }
