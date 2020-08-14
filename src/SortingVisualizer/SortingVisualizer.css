@@ -3,8 +3,8 @@
 }
 
 .array-bar {
-  width: 5px;
+  width: 10px;
   background-color: black;
   display: inline-block;
-  margin: 0 3px;
+  margin: 0 2px;
 }

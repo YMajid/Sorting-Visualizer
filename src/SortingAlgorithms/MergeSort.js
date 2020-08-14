@@ -1,21 +1,52 @@
-const mergeSort = (array) => {
+function mergeSortAnimation(array) {
   if (array.length <= 1) return array;
 
-  const middle = array.length / 2;
-  const firstHalf = mergeSort(array.slice(0, middle));
-  const secondHalf = mergeSort(array.slice(middle));
-  const sortedArray = [];
+  const animations = [];
+  const auxiliaryArray = array.slice();
+  mergeSort(array, 0, array.length - 1, auxiliaryArray, animations);
 
-  let i = 0;
-  let j = 0;
-  while (i < firstHalf.length && j < secondHalf.length) {
-    if (firstHalf[i] < secondHalf[j]) sortedArray.push(firstHalf[i++]);
-    else sortedArray.push(secondHalf[j++]);
+  return animations;
+}
+
+function mergeSort(numsArray, start, end, auxiliaryArray, animations) {
+  if (start === end) return;
+
+  const middle = Math.floor(start + (end - start) / 2);
+  mergeSort(auxiliaryArray, start, middle, numsArray, animations);
+  mergeSort(auxiliaryArray, middle + 1, end, numsArray, animations);
+  merge(numsArray, start, middle, end, auxiliaryArray, animations);
+}
+
+function merge(numsArray, start, middle, end, auxiliaryArray, animations) {
+  let k = start;
+  let i = start;
+  let j = middle + 1;
+
+  while (i <= middle && j <= end) {
+    animations.push([i, j]);
+    animations.push([i, j]);
+    if (auxiliaryArray[i] <= auxiliaryArray[j]) {
+      animations.push([k, auxiliaryArray[i]]);
+      numsArray[k++] = auxiliaryArray[i++];
+    } else {
+      animations.push([k, auxiliaryArray[j]]);
+      numsArray[k++] = auxiliaryArray[j++];
+    }
   }
-  while (i < firstHalf.length) sortedArray.push(firstHalf[i++]);
-  while (j < secondHalf.length) sortedArray.push(secondHalf[j++]);
 
-  return sortedArray;
-};
+  while (i <= middle) {
+    animations.push([i, i]);
+    animations.push([i, i]);
+    animations.push([k, auxiliaryArray[i]]);
+    numsArray[k++] = auxiliaryArray[i++];
+  }
 
-export default mergeSort;
+  while (j <= end) {
+    animations.push([j, j]);
+    animations.push([j, j]);
+    animations.push([k, auxiliaryArray[j]]);
+    numsArray[k++] = auxiliaryArray[j++];
+  }
+}
+
+export default mergeSortAnimation;

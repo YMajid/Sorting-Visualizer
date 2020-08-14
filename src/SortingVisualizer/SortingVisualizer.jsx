@@ -1,6 +1,6 @@
 import React from 'react';
 import './SortingVisualizer.css';
-import mergeSortHelper from '../SortingAlgorithms/MergeSort';
+import mergeSortAlgorithm from '../SortingAlgorithms/MergeSort';
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -29,7 +29,27 @@ class SortingVisualizer extends React.Component {
   heapSort(array) {}
 
   mergeSort(array) {
-    const sortedArray = mergeSortHelper(array);
+    const animations = mergeSortAlgorithm(array);
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const colourChange = i % 3 !== 2;
+      if (colourChange) {
+        const [firstBarIndex, secondBarIndex] = animations[i];
+        const firstBarStyle = arrayBars[firstBarIndex].style;
+        const secondBarStyle = arrayBars[secondBarIndex].style;
+        const colour = i % 3 === 0 ? 'red' : 'black';
+        setTimeout(() => {
+          firstBarStyle.backgroundColor = colour;
+          secondBarStyle.backgroundColor = colour;
+        }, i * 10);
+      } else {
+        setTimeout(() => {
+          const [firstBarIndex, newHeight] = animations[i];
+          const firstBarStyle = arrayBars[firstBarIndex].style;
+          firstBarStyle.height = `${newHeight}px`;
+        }, i * 10);
+      }
+    }
   }
 
   quickSort(array) {}
@@ -41,7 +61,7 @@ class SortingVisualizer extends React.Component {
       for (let j = 0; j < length; j++) {
         array.push(generateRandomInteger(-1000, 1000));
       }
-      const mergeSortArray = mergeSortHelper(array);
+      const mergeSortArray = mergeSortAlgorithm(array.slice());
       const jsSortedArray = array.slice().sort((a, b) => a - b);
       console.log(arraysAreEqual(mergeSortArray, jsSortedArray));
     }
