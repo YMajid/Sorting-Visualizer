@@ -1,5 +1,6 @@
 import React from 'react';
 import './SortingVisualizer.css';
+import testSortingAlgorithms from '../SortingAlgorithms/TestSortingAlgorithms';
 import mergeSortAlgorithm from '../SortingAlgorithms/MergeSort';
 import bubbleSortAlgorithm from '../SortingAlgorithms/BubbleSort';
 
@@ -26,32 +27,20 @@ class SortingVisualizer extends React.Component {
   }
 
   bubbleSort(array) {
-    const animations = bubbleSortAlgorithm(array);
+    const [animations, sortedArray] = bubbleSortAlgorithm(array.slice());
     drawAnimations(animations);
+    testSortingAlgorithms(array, sortedArray);
   }
 
   heapSort(array) {}
 
   mergeSort(array) {
-    const animations = mergeSortAlgorithm(array);
+    const [animations, sortedArray] = mergeSortAlgorithm(array.slice());
     drawAnimations(animations);
+    testSortingAlgorithms(array, sortedArray);
   }
 
   quickSort(array) {}
-
-  //TODO: Fix this - does not work properly
-  testSortingAlgorithms() {
-    for (let i = 0; i < 100; i++) {
-      const length = generateRandomInteger(1, 1000);
-      const array = [];
-      for (let j = 0; j < length; j++) {
-        array.push(generateRandomInteger(-1000, 1000));
-      }
-      const mergeSortArray = mergeSortAlgorithm(array.slice());
-      const jsSortedArray = array.slice().sort((a, b) => a - b);
-      console.log(arraysAreEqual(mergeSortArray, jsSortedArray));
-    }
-  }
 
   render() {
     const { array } = this.state;
@@ -67,7 +56,6 @@ class SortingVisualizer extends React.Component {
         <button onClick={() => this.heapSort(array)}>Heap Sort</button>
         <button onClick={() => this.mergeSort(array)}>Merge Sort</button>
         <button onClick={() => this.quickSort(array)}>Quick Sort</button>
-        <button onClick={() => this.testSortingAlgorithms()}>Test</button>
       </div>
     );
   }
@@ -75,17 +63,6 @@ class SortingVisualizer extends React.Component {
 
 function generateRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function arraysAreEqual(firstArray, secondArray) {
-  if (firstArray == null || secondArray == null) return firstArray === secondArray;
-  if (firstArray.length !== secondArray.length) return false;
-
-  for (let i = 0; i < firstArray.length; i++) {
-    if (firstArray[i] !== secondArray[i]) return false;
-  }
-
-  return true;
 }
 
 function drawAnimations(animations) {
@@ -100,13 +77,13 @@ function drawAnimations(animations) {
       setTimeout(() => {
         firstBarStyle.backgroundColor = colour;
         secondBarStyle.backgroundColor = colour;
-      }, i * 10);
+      }, i * 1);
     } else {
       setTimeout(() => {
         const [firstBarIndex, newHeight] = animations[i];
         const firstBarStyle = arrayBars[firstBarIndex].style;
         firstBarStyle.height = `${newHeight}px`;
-      }, i * 10);
+      }, i * 1);
     }
   }
 }

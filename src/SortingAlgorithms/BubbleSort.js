@@ -2,13 +2,12 @@ function bubbleSortAnimations(array) {
   if (array.length <= 1) return array;
 
   const animations = [];
-  const auxiliaryArray = array.slice();
-  bubbleSort(array, auxiliaryArray, animations);
+  bubbleSort(array, animations);
 
-  return animations;
+  return [animations, array];
 }
 
-function bubbleSort(numsArray, auxiliaryArray, animations) {
+function bubbleSort(numsArray, animations) {
   for (let i = 0; i < numsArray.length; i++) {
     for (let j = i + 1; j < numsArray.length; j++) {
       animations.push([i, j]);

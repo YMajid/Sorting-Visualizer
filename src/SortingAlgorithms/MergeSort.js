@@ -5,7 +5,7 @@ function mergeSortAnimation(array) {
   const auxiliaryArray = array.slice();
   mergeSort(array, 0, array.length - 1, auxiliaryArray, animations);
 
-  return animations;
+  return [animations, array];
 }
 
 function mergeSort(numsArray, start, end, auxiliaryArray, animations) {
