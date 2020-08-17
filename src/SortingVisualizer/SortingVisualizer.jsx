@@ -1,6 +1,7 @@
 import React from 'react';
 import './SortingVisualizer.css';
 import mergeSortAlgorithm from '../SortingAlgorithms/MergeSort';
+import bubbleSortAlgorithm from '../SortingAlgorithms/BubbleSort';
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -24,7 +25,30 @@ class SortingVisualizer extends React.Component {
     this.setState({ array });
   }
 
-  bubbleSort(array) {}
+  bubbleSort(array) {
+    const animations = bubbleSortAlgorithm(array);
+    console.log(animations);
+    for (let i = 0; i < animations.length; i++) {
+      const arrayBars = document.getElementsByClassName('array-bar');
+      const colourChange = i % 3 !== 2;
+      if (colourChange) {
+        const [firstBarIndex, secondBarIndex] = animations[i];
+        const firstBarStyle = arrayBars[firstBarIndex].style;
+        const secondBarStyle = arrayBars[secondBarIndex].style;
+        const colour = i % 3 === 0 ? 'red' : 'black';
+        setTimeout(() => {
+          firstBarStyle.backgroundColor = colour;
+          secondBarStyle.backgroundColor = colour;
+        }, i * 3);
+      } else {
+        setTimeout(() => {
+          const [firstBarIndex, newHeight] = animations[i];
+          const firstBarStyle = arrayBars[firstBarIndex].style;
+          firstBarStyle.height = `${newHeight}px`;
+        }, i * 3);
+      }
+    }
+  }
 
   heapSort(array) {}
 
@@ -54,6 +78,7 @@ class SortingVisualizer extends React.Component {
 
   quickSort(array) {}
 
+  //TODO: Fix this - does not work properly
   testSortingAlgorithms() {
     for (let i = 0; i < 100; i++) {
       const length = generateRandomInteger(1, 1000);
@@ -73,16 +98,10 @@ class SortingVisualizer extends React.Component {
     return (
       <div className="array-container">
         {array.map((value, index) => (
-          <div
-            className="array-bar"
-            key={index}
-            style={{ height: `${value}px` }}
-          ></div>
+          <div className="array-bar" key={index} style={{ height: `${value}px` }}></div>
         ))}
         <br></br>
-        <button onClick={() => this.resetValuesArray()}>
-          Generate New Array
-        </button>
+        <button onClick={() => this.resetValuesArray()}>Generate New Array</button>
         <button onClick={() => this.bubbleSort(array)}>Bubble Sort</button>
         <button onClick={() => this.heapSort(array)}>Heap Sort</button>
         <button onClick={() => this.mergeSort(array)}>Merge Sort</button>
@@ -98,8 +117,7 @@ function generateRandomInteger(min, max) {
 }
 
 function arraysAreEqual(firstArray, secondArray) {
-  if (firstArray == null || secondArray == null)
-    return firstArray === secondArray;
+  if (firstArray == null || secondArray == null) return firstArray === secondArray;
   if (firstArray.length !== secondArray.length) return false;
 
   for (let i = 0; i < firstArray.length; i++) {
