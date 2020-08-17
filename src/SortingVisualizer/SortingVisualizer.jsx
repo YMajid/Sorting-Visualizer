@@ -27,53 +27,14 @@ class SortingVisualizer extends React.Component {
 
   bubbleSort(array) {
     const animations = bubbleSortAlgorithm(array);
-    console.log(animations);
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const colourChange = i % 3 !== 2;
-      if (colourChange) {
-        const [firstBarIndex, secondBarIndex] = animations[i];
-        const firstBarStyle = arrayBars[firstBarIndex].style;
-        const secondBarStyle = arrayBars[secondBarIndex].style;
-        const colour = i % 3 === 0 ? 'red' : 'black';
-        setTimeout(() => {
-          firstBarStyle.backgroundColor = colour;
-          secondBarStyle.backgroundColor = colour;
-        }, i * 3);
-      } else {
-        setTimeout(() => {
-          const [firstBarIndex, newHeight] = animations[i];
-          const firstBarStyle = arrayBars[firstBarIndex].style;
-          firstBarStyle.height = `${newHeight}px`;
-        }, i * 3);
-      }
-    }
+    drawAnimations(animations);
   }
 
   heapSort(array) {}
 
   mergeSort(array) {
     const animations = mergeSortAlgorithm(array);
-    for (let i = 0; i < animations.length; i++) {
-      const arrayBars = document.getElementsByClassName('array-bar');
-      const colourChange = i % 3 !== 2;
-      if (colourChange) {
-        const [firstBarIndex, secondBarIndex] = animations[i];
-        const firstBarStyle = arrayBars[firstBarIndex].style;
-        const secondBarStyle = arrayBars[secondBarIndex].style;
-        const colour = i % 3 === 0 ? 'red' : 'black';
-        setTimeout(() => {
-          firstBarStyle.backgroundColor = colour;
-          secondBarStyle.backgroundColor = colour;
-        }, i * 10);
-      } else {
-        setTimeout(() => {
-          const [firstBarIndex, newHeight] = animations[i];
-          const firstBarStyle = arrayBars[firstBarIndex].style;
-          firstBarStyle.height = `${newHeight}px`;
-        }, i * 10);
-      }
-    }
+    drawAnimations(animations);
   }
 
   quickSort(array) {}
@@ -125,6 +86,29 @@ function arraysAreEqual(firstArray, secondArray) {
   }
 
   return true;
+}
+
+function drawAnimations(animations) {
+  for (let i = 0; i < animations.length; i++) {
+    const arrayBars = document.getElementsByClassName('array-bar');
+    const colourChange = i % 3 !== 2;
+    if (colourChange) {
+      const [firstBarIndex, secondBarIndex] = animations[i];
+      const firstBarStyle = arrayBars[firstBarIndex].style;
+      const secondBarStyle = arrayBars[secondBarIndex].style;
+      const colour = i % 3 === 0 ? 'red' : 'black';
+      setTimeout(() => {
+        firstBarStyle.backgroundColor = colour;
+        secondBarStyle.backgroundColor = colour;
+      }, i * 10);
+    } else {
+      setTimeout(() => {
+        const [firstBarIndex, newHeight] = animations[i];
+        const firstBarStyle = arrayBars[firstBarIndex].style;
+        firstBarStyle.height = `${newHeight}px`;
+      }, i * 10);
+    }
+  }
 }
 
 export default SortingVisualizer;
