@@ -1,8 +1,11 @@
 import React from 'react';
 import './SortingVisualizer.css';
 import testSortingAlgorithms from '../SortingAlgorithms/TestSortingAlgorithms';
-import mergeSortAlgorithm from '../SortingAlgorithms/MergeSort';
 import bubbleSortAlgorithm from '../SortingAlgorithms/BubbleSort';
+import bubbleSortAnimation from '../Animations/BubbleSortAnimation';
+import mergeSortAlgorithm from '../SortingAlgorithms/MergeSort';
+import mergeSortAnimation from '../Animations/MergeSortAnimation';
+import quickSortAlgorithm from '../SortingAlgorithms/QuickSort';
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -28,7 +31,7 @@ class SortingVisualizer extends React.Component {
 
   bubbleSort(array) {
     const [animations, sortedArray] = bubbleSortAlgorithm(array.slice());
-    drawAnimations(animations);
+    bubbleSortAnimation(animations);
     testSortingAlgorithms(array, sortedArray);
   }
 
@@ -36,11 +39,16 @@ class SortingVisualizer extends React.Component {
 
   mergeSort(array) {
     const [animations, sortedArray] = mergeSortAlgorithm(array.slice());
-    drawAnimations(animations);
+    mergeSortAnimation(animations);
     testSortingAlgorithms(array, sortedArray);
   }
 
-  quickSort(array) {}
+  quickSort(array) {
+    // const [animations, sortedArray] = quickSortAlgorithm(array.slice());
+    // console.log(sortedArray);
+    // drawAnimations(animations);
+    // testSortingAlgorithms(array, sortedArray);
+  }
 
   render() {
     const { array } = this.state;
@@ -63,29 +71,6 @@ class SortingVisualizer extends React.Component {
 
 function generateRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
-}
-
-function drawAnimations(animations) {
-  for (let i = 0; i < animations.length; i++) {
-    const arrayBars = document.getElementsByClassName('array-bar');
-    const colourChange = i % 3 !== 2;
-    if (colourChange) {
-      const [firstBarIndex, secondBarIndex] = animations[i];
-      const firstBarStyle = arrayBars[firstBarIndex].style;
-      const secondBarStyle = arrayBars[secondBarIndex].style;
-      const colour = i % 3 === 0 ? 'red' : 'black';
-      setTimeout(() => {
-        firstBarStyle.backgroundColor = colour;
-        secondBarStyle.backgroundColor = colour;
-      }, i * 1);
-    } else {
-      setTimeout(() => {
-        const [firstBarIndex, newHeight] = animations[i];
-        const firstBarStyle = arrayBars[firstBarIndex].style;
-        firstBarStyle.height = `${newHeight}px`;
-      }, i * 1);
-    }
-  }
 }
 
 export default SortingVisualizer;
