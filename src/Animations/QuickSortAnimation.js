@@ -1,12 +1,12 @@
 function drawAnimation(animations) {
   for (let i = 0; i < animations.length; i++) {
     const arrayBars = document.getElementsByClassName('array-bar');
-    const colourChange = i % 3 !== 2;
+    const colourChange = i % 4 < 2;
     if (colourChange) {
       const [firstBarIndex, secondBarIndex] = animations[i];
       const firstBarStyle = arrayBars[firstBarIndex].style;
       const secondBarStyle = arrayBars[secondBarIndex].style;
-      const colour = i % 3 === 0 ? 'red' : 'black';
+      const colour = i % 4 === 0 ? 'red' : 'black';
       setTimeout(() => {
         firstBarStyle.backgroundColor = colour;
         secondBarStyle.backgroundColor = colour;

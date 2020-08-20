@@ -6,6 +6,7 @@ import bubbleSortAnimation from '../Animations/BubbleSortAnimation';
 import mergeSortAlgorithm from '../SortingAlgorithms/MergeSort';
 import mergeSortAnimation from '../Animations/MergeSortAnimation';
 import quickSortAlgorithm from '../SortingAlgorithms/QuickSort';
+import quickSortAnimation from '../Animations/QuickSortAnimation';
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -33,6 +34,7 @@ class SortingVisualizer extends React.Component {
     const [animations, sortedArray] = bubbleSortAlgorithm(array.slice());
     bubbleSortAnimation(animations);
     testSortingAlgorithms(array, sortedArray);
+    this.setState({ sortedArray });
   }
 
   heapSort(array) {}
@@ -41,13 +43,14 @@ class SortingVisualizer extends React.Component {
     const [animations, sortedArray] = mergeSortAlgorithm(array.slice());
     mergeSortAnimation(animations);
     testSortingAlgorithms(array, sortedArray);
+    this.setState({ sortedArray });
   }
 
   quickSort(array) {
-    // const [animations, sortedArray] = quickSortAlgorithm(array.slice());
-    // console.log(sortedArray);
-    // drawAnimations(animations);
-    // testSortingAlgorithms(array, sortedArray);
+    const [animations, sortedArray] = quickSortAlgorithm(array.slice());
+    quickSortAnimation(animations);
+    testSortingAlgorithms(array, sortedArray);
+    this.setState({ sortedArray });
   }
 
   render() {
