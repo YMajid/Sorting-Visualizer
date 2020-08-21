@@ -7,6 +7,7 @@ import mergeSortAlgorithm from '../SortingAlgorithms/MergeSort';
 import mergeSortAnimation from '../Animations/MergeSortAnimation';
 import quickSortAlgorithm from '../SortingAlgorithms/QuickSort';
 import quickSortAnimation from '../Animations/QuickSortAnimation';
+import Footer from '../Components/Footer';
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class SortingVisualizer extends React.Component {
 
   resetValuesArray() {
     const array = [];
-    for (let i = 0; i < 100; i++) {
+    for (let i = 0; i < 80; i++) {
       array.push(generateRandomInteger(100, 800));
     }
     this.setState({ array });
@@ -32,7 +33,7 @@ class SortingVisualizer extends React.Component {
 
   bubbleSort(array) {
     const [animations, sortedArray] = bubbleSortAlgorithm(array.slice());
-    bubbleSortAnimation(animations);
+    bubbleSortAnimation(animations, animationSpeedMS);
     testSortingAlgorithms(array, sortedArray);
     this.setState({ sortedArray });
   }
@@ -41,14 +42,14 @@ class SortingVisualizer extends React.Component {
 
   mergeSort(array) {
     const [animations, sortedArray] = mergeSortAlgorithm(array.slice());
-    mergeSortAnimation(animations);
+    mergeSortAnimation(animations, animationSpeedMS);
     testSortingAlgorithms(array, sortedArray);
     this.setState({ sortedArray });
   }
 
   quickSort(array) {
     const [animations, sortedArray] = quickSortAlgorithm(array.slice());
-    quickSortAnimation(animations);
+    quickSortAnimation(animations, animationSpeedMS);
     testSortingAlgorithms(array, sortedArray);
     this.setState({ sortedArray });
   }
@@ -62,15 +63,19 @@ class SortingVisualizer extends React.Component {
           <div className="array-bar" key={index} style={{ height: `${value}px` }}></div>
         ))}
         <br></br>
-        <button onClick={() => this.resetValuesArray()}>Generate New Array</button>
-        <button onClick={() => this.bubbleSort(array)}>Bubble Sort</button>
-        <button onClick={() => this.heapSort(array)}>Heap Sort</button>
-        <button onClick={() => this.mergeSort(array)}>Merge Sort</button>
-        <button onClick={() => this.quickSort(array)}>Quick Sort</button>
+        <Footer
+          generateArray={() => this.resetValuesArray()}
+          bubbleSort={() => this.bubbleSort(array)}
+          heapSort={() => this.heapSort(array)}
+          mergeSort={() => this.mergeSort(array)}
+          quickSort={() => this.quickSort(array)}
+        ></Footer>
       </div>
     );
   }
 }
+
+const animationSpeedMS = 10;
 
 function generateRandomInteger(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
