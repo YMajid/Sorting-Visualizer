@@ -11,9 +11,6 @@ class Footer extends Component {
         <a id="bubbleSort" className="button hvr-fade" onClick={this.props.bubbleSort}>
           Bubble Sort
         </a>
-        <a id="heapSort" className="button hvr-fade" onClick={this.props.heapSort}>
-          Heap Sort
-        </a>
         <a id="mergeSort" className="button hvr-fade" onClick={this.props.mergeSort}>
           Merge Sort
         </a>

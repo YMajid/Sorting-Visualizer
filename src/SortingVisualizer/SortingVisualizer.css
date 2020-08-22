@@ -1,5 +1,6 @@
 .array-container {
-  text-align: center;
+  display: block;
+  justify-content: center;
 }
 
 .array-bar {

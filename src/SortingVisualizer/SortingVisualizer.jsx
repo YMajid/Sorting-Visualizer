@@ -15,6 +15,7 @@ class SortingVisualizer extends React.Component {
 
     this.state = {
       valuesArray: [],
+      sorted: false,
     };
   }
 
@@ -28,34 +29,36 @@ class SortingVisualizer extends React.Component {
     for (let i = 0; i < 80; i++) {
       array.push(generateRandomInteger(100, 800));
     }
-    this.setState({ array });
+    this.setState({ valuesArray: array, sorted: false });
   }
 
-  bubbleSort(array) {
+  bubbleSort(array, sorted) {
+    if (sorted) return;
     const [animations, sortedArray] = bubbleSortAlgorithm(array.slice());
     bubbleSortAnimation(animations, animationSpeedMS);
     testSortingAlgorithms(array, sortedArray);
-    this.setState({ sortedArray });
+    this.setState({ sorted: true });
   }
 
-  heapSort(array) {}
-
-  mergeSort(array) {
+  mergeSort(array, sorted) {
+    if (sorted) return;
     const [animations, sortedArray] = mergeSortAlgorithm(array.slice());
     mergeSortAnimation(animations, animationSpeedMS);
     testSortingAlgorithms(array, sortedArray);
-    this.setState({ sortedArray });
+    this.setState({ sorted: true });
   }
 
-  quickSort(array) {
+  quickSort(array, sorted) {
+    if (sorted) return;
     const [animations, sortedArray] = quickSortAlgorithm(array.slice());
     quickSortAnimation(animations, animationSpeedMS);
     testSortingAlgorithms(array, sortedArray);
-    this.setState({ sortedArray });
+    this.setState({ sorted: true });
   }
 
   render() {
-    const { array } = this.state;
+    const array = this.state.valuesArray;
+    const sorted = this.state.sorted;
     console.log(array);
     return (
       <div className="array-container">
@@ -65,10 +68,9 @@ class SortingVisualizer extends React.Component {
         <br></br>
         <Footer
           generateArray={() => this.resetValuesArray()}
-          bubbleSort={() => this.bubbleSort(array)}
-          heapSort={() => this.heapSort(array)}
-          mergeSort={() => this.mergeSort(array)}
-          quickSort={() => this.quickSort(array)}
+          bubbleSort={() => this.bubbleSort(array, sorted)}
+          mergeSort={() => this.mergeSort(array, sorted)}
+          quickSort={() => this.quickSort(array, sorted)}
         ></Footer>
       </div>
     );
