@@ -1,19 +1,21 @@
-function mergeSortAnimation(array) {
+function mergeSort(array, animationSpeed) {
   if (array.length <= 1) return array;
 
   const animations = [];
   const auxiliaryArray = array.slice();
-  mergeSort(array, 0, array.length - 1, auxiliaryArray, animations);
+  mergeSortAlgorithm(array, 0, array.length - 1, auxiliaryArray, animations);
 
-  return [animations, array];
+  drawAnimation(animations, animationSpeed);
+
+  return array;
 }
 
-function mergeSort(numsArray, start, end, auxiliaryArray, animations) {
+function mergeSortAlgorithm(numsArray, start, end, auxiliaryArray, animations) {
   if (start === end) return;
 
   const middle = Math.floor(start + (end - start) / 2);
-  mergeSort(auxiliaryArray, start, middle, numsArray, animations);
-  mergeSort(auxiliaryArray, middle + 1, end, numsArray, animations);
+  mergeSortAlgorithm(auxiliaryArray, start, middle, numsArray, animations);
+  mergeSortAlgorithm(auxiliaryArray, middle + 1, end, numsArray, animations);
   merge(numsArray, start, middle, end, auxiliaryArray, animations);
 }
 
@@ -49,4 +51,27 @@ function merge(numsArray, start, middle, end, auxiliaryArray, animations) {
   }
 }
 
-export default mergeSortAnimation;
+function drawAnimation(animations, animationSpeed) {
+  for (let i = 0; i < animations.length; i++) {
+    const arrayBars = document.getElementsByClassName('array-bar');
+    const colourChange = i % 3 !== 2;
+    if (colourChange) {
+      const [firstBarIndex, secondBarIndex] = animations[i];
+      const firstBarStyle = arrayBars[firstBarIndex].style;
+      const secondBarStyle = arrayBars[secondBarIndex].style;
+      const colour = i % 3 === 0 ? 'red' : 'black';
+      setTimeout(() => {
+        firstBarStyle.backgroundColor = colour;
+        secondBarStyle.backgroundColor = colour;
+      }, i * animationSpeed);
+    } else {
+      setTimeout(() => {
+        const [firstBarIndex, newHeight] = animations[i];
+        const firstBarStyle = arrayBars[firstBarIndex].style;
+        firstBarStyle.height = `${newHeight}px`;
+      }, i * animationSpeed);
+    }
+  }
+}
+
+export default mergeSort;
