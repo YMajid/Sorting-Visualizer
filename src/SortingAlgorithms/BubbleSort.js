@@ -1,15 +1,17 @@
 import swap from './Swap';
 
-function bubbleSortAnimations(array) {
+function bubbleSort(array, animationSpeed) {
   if (array.length <= 1) return array;
 
   const animations = [];
-  bubbleSort(array, animations);
+  bubbleSortAlgorithm(array, animations);
 
-  return [animations, array];
+  drawAnimation(animations, animationSpeed);
+
+  return array;
 }
 
-function bubbleSort(numsArray, animations) {
+function bubbleSortAlgorithm(numsArray, animations) {
   for (let i = 0; i < numsArray.length; i++) {
     for (let j = i + 1; j < numsArray.length; j++) {
       animations.push([i, j]);
@@ -30,4 +32,27 @@ function bubbleSort(numsArray, animations) {
   }
 }
 
-export default bubbleSortAnimations;
+function drawAnimation(animations, animationSpeed) {
+  for (let i = 0; i < animations.length; i++) {
+    const arrayBars = document.getElementsByClassName('array-bar');
+    const colourChange = i % 4 < 2;
+    if (colourChange) {
+      const [firstBarIndex, secondBarIndex] = animations[i];
+      const firstBarStyle = arrayBars[firstBarIndex].style;
+      const secondBarStyle = arrayBars[secondBarIndex].style;
+      const colour = i % 4 === 0 ? 'red' : 'black';
+      setTimeout(() => {
+        firstBarStyle.backgroundColor = colour;
+        secondBarStyle.backgroundColor = colour;
+      }, i * animationSpeed);
+    } else {
+      setTimeout(() => {
+        const [firstBarIndex, newHeight] = animations[i];
+        const firstBarStyle = arrayBars[firstBarIndex].style;
+        firstBarStyle.height = `${newHeight}px`;
+      }, i * animationSpeed);
+    }
+  }
+}
+
+export default bubbleSort;
