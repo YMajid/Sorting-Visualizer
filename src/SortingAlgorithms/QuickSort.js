@@ -21,8 +21,8 @@ function quickSortAlgorithm(numsArray, start, end, animations) {
   let right = end;
 
   while (left <= right) {
-    animations.push([left, right]);
-    animations.push([left, right]);
+    animations.push([pivot, left, right]);
+    animations.push([pivot, left, right]);
     if (numsArray[pivot] > numsArray[right] && numsArray[left] > numsArray[pivot]) {
       animations.push([left, numsArray[right]]);
       animations.push([right, numsArray[left]]);
@@ -36,8 +36,8 @@ function quickSortAlgorithm(numsArray, start, end, animations) {
   }
 
   if (pivot !== right) {
-    animations.push([pivot, right]);
-    animations.push([pivot, right]);
+    animations.push([pivot, pivot, right]);
+    animations.push([pivot, pivot, right]);
     animations.push([right, numsArray[pivot]]);
     animations.push([pivot, numsArray[right]]);
     swap(numsArray, pivot, right);
@@ -48,15 +48,23 @@ function quickSortAlgorithm(numsArray, start, end, animations) {
 }
 
 function drawAnimation(animations, animationSpeed) {
+  var previousPivotIndex = 0;
+
   for (let i = 0; i < animations.length; i++) {
     const arrayBars = document.getElementsByClassName('array-bar');
     const colourChange = i % 4 < 2;
     if (colourChange) {
-      const [firstBarIndex, secondBarIndex] = animations[i];
+      const [pivotBarIndex, firstBarIndex, secondBarIndex] = animations[i];
+      const pivotBarStyle = arrayBars[pivotBarIndex].style;
       const firstBarStyle = arrayBars[firstBarIndex].style;
       const secondBarStyle = arrayBars[secondBarIndex].style;
       const colour = i % 4 === 0 ? 'red' : 'black';
       setTimeout(() => {
+        if (pivotBarIndex !== previousPivotIndex) {
+          const previousPivotStyle = arrayBars[previousPivotIndex].style;
+          previousPivotStyle.backgroundColor = 'black';
+          previousPivotIndex = pivotBarIndex;
+        } else pivotBarStyle.backgroundColor = 'red';
         firstBarStyle.backgroundColor = colour;
         secondBarStyle.backgroundColor = colour;
       }, i * animationSpeed);

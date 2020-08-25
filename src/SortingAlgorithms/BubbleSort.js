@@ -33,6 +33,8 @@ function bubbleSortAlgorithm(numsArray, animations) {
 }
 
 function drawAnimation(animations, animationSpeed) {
+  var previousFirstIndex = 0;
+
   for (let i = 0; i < animations.length; i++) {
     const arrayBars = document.getElementsByClassName('array-bar');
     const colourChange = i % 4 < 2;
@@ -42,7 +44,11 @@ function drawAnimation(animations, animationSpeed) {
       const secondBarStyle = arrayBars[secondBarIndex].style;
       const colour = i % 4 === 0 ? 'red' : 'black';
       setTimeout(() => {
-        firstBarStyle.backgroundColor = colour;
+        if (firstBarIndex !== previousFirstIndex) {
+          const previouFirstBarStyle = arrayBars[previousFirstIndex].style;
+          previouFirstBarStyle.backgroundColor = 'black';
+          previousFirstIndex = firstBarIndex;
+        } else firstBarStyle.backgroundColor = 'red';
         secondBarStyle.backgroundColor = colour;
       }, i * animationSpeed);
     } else {
