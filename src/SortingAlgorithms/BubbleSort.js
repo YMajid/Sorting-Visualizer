@@ -1,12 +1,12 @@
 import swap from './Swap';
 
-function bubbleSort(array, animationSpeed) {
+function bubbleSort(array, animationSpeed, barsColour, pivotColour, selectionColour, sortedColour) {
   if (array.length <= 1) return array;
 
   const animations = [];
   bubbleSortAlgorithm(array, animations);
 
-  drawAnimation(animations, animationSpeed);
+  drawAnimation(animations, animationSpeed, barsColour, pivotColour, selectionColour, sortedColour);
 
   return array;
 }
@@ -32,23 +32,31 @@ function bubbleSortAlgorithm(numsArray, animations) {
   }
 }
 
-function drawAnimation(animations, animationSpeed) {
+//TODO: Make sure last bar gets coloured in
+function drawAnimation(
+  animations,
+  animationSpeed,
+  barsColour,
+  pivotColour,
+  selectionColour,
+  sortedColour
+) {
   var previousFirstIndex = 0;
+  const arrayBars = document.getElementsByClassName('array-bar');
 
   for (let i = 0; i < animations.length; i++) {
-    const arrayBars = document.getElementsByClassName('array-bar');
     const colourChange = i % 4 < 2;
     if (colourChange) {
       const [firstBarIndex, secondBarIndex] = animations[i];
       const firstBarStyle = arrayBars[firstBarIndex].style;
       const secondBarStyle = arrayBars[secondBarIndex].style;
-      const colour = i % 4 === 0 ? 'red' : 'black';
+      const colour = i % 4 === 0 ? selectionColour : barsColour;
       setTimeout(() => {
         if (firstBarIndex !== previousFirstIndex) {
           const previouFirstBarStyle = arrayBars[previousFirstIndex].style;
-          previouFirstBarStyle.backgroundColor = 'black';
+          previouFirstBarStyle.backgroundColor = sortedColour;
           previousFirstIndex = firstBarIndex;
-        } else firstBarStyle.backgroundColor = 'red';
+        } else firstBarStyle.backgroundColor = pivotColour;
         secondBarStyle.backgroundColor = colour;
       }, i * animationSpeed);
     } else {
