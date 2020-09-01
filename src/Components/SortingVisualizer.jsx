@@ -23,10 +23,19 @@ class SortingVisualizer extends React.Component {
 
   resetValuesArray() {
     const array = [];
-    for (let i = 0; i < 80; i++) {
-      array.push(generateRandomInteger(100, 800));
+    for (let i = 0; i < 50; i++) {
+      array.push(generateRandomInteger(300, 800));
     }
     this.setState({ valuesArray: array, sorted: false });
+    this.resetArrayBarColours();
+  }
+
+  resetArrayBarColours() {
+    const arrayBars = document.getElementsByClassName('array-bar');
+    for (let i = 0; i < arrayBars.length; i++) {
+      const barStyle = arrayBars[i].style;
+      barStyle.backgroundColor = barsColour;
+    }
   }
 
   bubbleSort(array, sorted) {
