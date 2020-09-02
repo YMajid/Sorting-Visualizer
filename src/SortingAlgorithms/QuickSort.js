@@ -1,12 +1,12 @@
 import swap from './Swap';
 
-function quickSort(array, animationSpeed) {
+function quickSort(array, animationSpeed, barsColour, pivotColour, selectionColour, sortedColour) {
   if (array.length <= 1) return array;
 
   const animations = [];
   quickSortAlgorithm(array, 0, array.length - 1, animations);
 
-  drawAnimation(animations, animationSpeed);
+  drawAnimation(animations, animationSpeed, barsColour, pivotColour, selectionColour, sortedColour);
 
   return array;
 }
@@ -47,7 +47,15 @@ function quickSortAlgorithm(numsArray, start, end, animations) {
   quickSortAlgorithm(numsArray, right + 1, end, animations);
 }
 
-function drawAnimation(animations, animationSpeed) {
+//TODO: Make sure last bars gets coloured in
+function drawAnimation(
+  animations,
+  animationSpeed,
+  barsColour,
+  pivotColour,
+  selectionColour,
+  sortedColour
+) {
   var previousPivotIndex = 0;
 
   for (let i = 0; i < animations.length; i++) {
@@ -58,13 +66,12 @@ function drawAnimation(animations, animationSpeed) {
       const pivotBarStyle = arrayBars[pivotBarIndex].style;
       const firstBarStyle = arrayBars[firstBarIndex].style;
       const secondBarStyle = arrayBars[secondBarIndex].style;
-      const colour = i % 4 === 0 ? 'red' : 'black';
+      const colour = i % 4 === 0 ? selectionColour : barsColour;
       setTimeout(() => {
         if (pivotBarIndex !== previousPivotIndex) {
-          const previousPivotStyle = arrayBars[previousPivotIndex].style;
-          previousPivotStyle.backgroundColor = 'black';
+          updatePivotColour(arrayBars, previousPivotIndex, pivotBarIndex, sortedColour);
           previousPivotIndex = pivotBarIndex;
-        } else pivotBarStyle.backgroundColor = 'red';
+        } else pivotBarStyle.backgroundColor = pivotColour;
         firstBarStyle.backgroundColor = colour;
         secondBarStyle.backgroundColor = colour;
       }, i * animationSpeed);
@@ -75,6 +82,13 @@ function drawAnimation(animations, animationSpeed) {
         firstBarStyle.height = `${newHeight}px`;
       }, i * animationSpeed);
     }
+  }
+}
+
+function updatePivotColour(arrayBars, previousPivot, currentPivot, sortedColour) {
+  for (let i = previousPivot; i < currentPivot; i++) {
+    const previousPivotStyle = arrayBars[i].style;
+    previousPivotStyle.backgroundColor = sortedColour;
   }
 }
 
