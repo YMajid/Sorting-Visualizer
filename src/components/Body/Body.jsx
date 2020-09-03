@@ -1,10 +1,10 @@
 import React from 'react';
-import './SortingVisualizer.css';
-import testSortingAlgorithms from '../SortingAlgorithms/TestSortingAlgorithms';
-import bubbleSort from '../SortingAlgorithms/BubbleSort';
-import mergeSort from '../SortingAlgorithms/MergeSort';
-import quickSort from '../SortingAlgorithms/QuickSort';
-import Footer from './Footer';
+import './Body.css';
+import testSortingAlgorithms from '../../algorithms/TestSortingAlgorithms';
+import bubbleSort from '../../algorithms/BubbleSort';
+import mergeSort from '../../algorithms/MergeSort';
+import quickSort from '../../algorithms/QuickSort';
+import Footer from '../Footer/Footer';
 
 class SortingVisualizer extends React.Component {
   constructor(props) {
@@ -27,14 +27,14 @@ class SortingVisualizer extends React.Component {
       array.push(generateRandomInteger(300, 800));
     }
     this.setState({ valuesArray: array, sorted: false });
-    this.resetArrayBarColours();
+    this.changeArrayBarColours(barsColour);
   }
 
-  resetArrayBarColours() {
+  changeArrayBarColours(colour) {
     const arrayBars = document.getElementsByClassName('array-bar');
     for (let i = 0; i < arrayBars.length; i++) {
       const barStyle = arrayBars[i].style;
-      barStyle.backgroundColor = barsColour;
+      barStyle.backgroundColor = colour;
     }
   }
 

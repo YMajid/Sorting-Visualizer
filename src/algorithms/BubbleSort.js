@@ -32,7 +32,6 @@ function bubbleSortAlgorithm(numsArray, animations) {
   }
 }
 
-//TODO: Make sure last bar gets coloured in
 function drawAnimation(
   animations,
   animationSpeed,
@@ -56,8 +55,13 @@ function drawAnimation(
           const previouFirstBarStyle = arrayBars[previousFirstIndex].style;
           previouFirstBarStyle.backgroundColor = sortedColour;
           previousFirstIndex = firstBarIndex;
-        } else firstBarStyle.backgroundColor = pivotColour;
-        secondBarStyle.backgroundColor = colour;
+        } else {
+          firstBarStyle.backgroundColor = pivotColour;
+          secondBarStyle.backgroundColor = colour;
+        }
+        if (firstBarIndex === arrayBars.length - 1) {
+          firstBarStyle.backgroundColor = sortedColour;
+        }
       }, i * animationSpeed);
     } else {
       setTimeout(() => {

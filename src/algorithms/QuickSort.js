@@ -57,9 +57,9 @@ function drawAnimation(
   sortedColour
 ) {
   var previousPivotIndex = 0;
+  const arrayBars = document.getElementsByClassName('array-bar');
 
   for (let i = 0; i < animations.length; i++) {
-    const arrayBars = document.getElementsByClassName('array-bar');
     const colourChange = i % 4 < 2;
     if (colourChange) {
       const [pivotBarIndex, firstBarIndex, secondBarIndex] = animations[i];
@@ -68,19 +68,21 @@ function drawAnimation(
       const secondBarStyle = arrayBars[secondBarIndex].style;
       const colour = i % 4 === 0 ? selectionColour : barsColour;
       setTimeout(() => {
-        if (pivotBarIndex !== previousPivotIndex) {
+        if (pivotBarIndex !== previousPivotIndex && firstBarIndex !== arrayBars.length - 1) {
           updatePivotColour(arrayBars, previousPivotIndex, pivotBarIndex, sortedColour);
           previousPivotIndex = pivotBarIndex;
-        } else pivotBarStyle.backgroundColor = pivotColour;
-        firstBarStyle.backgroundColor = colour;
-        secondBarStyle.backgroundColor = colour;
-      }, i * animationSpeed);
+        } else {
+          pivotBarStyle.backgroundColor = pivotColour;
+          firstBarStyle.backgroundColor = colour;
+          secondBarStyle.backgroundColor = colour;
+        }
+      }, i * 1);
     } else {
       setTimeout(() => {
         const [firstBarIndex, newHeight] = animations[i];
         const firstBarStyle = arrayBars[firstBarIndex].style;
         firstBarStyle.height = `${newHeight}px`;
-      }, i * animationSpeed);
+      }, i * 1);
     }
   }
 }
