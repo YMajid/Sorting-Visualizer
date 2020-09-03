@@ -47,7 +47,6 @@ function quickSortAlgorithm(numsArray, start, end, animations) {
   quickSortAlgorithm(numsArray, right + 1, end, animations);
 }
 
-//TODO: Make sure last bars gets coloured in
 function drawAnimation(
   animations,
   animationSpeed,
@@ -68,7 +67,7 @@ function drawAnimation(
       const secondBarStyle = arrayBars[secondBarIndex].style;
       const colour = i % 4 === 0 ? selectionColour : barsColour;
       setTimeout(() => {
-        if (pivotBarIndex !== previousPivotIndex && firstBarIndex !== arrayBars.length - 1) {
+        if (pivotBarIndex !== previousPivotIndex) {
           updatePivotColour(arrayBars, previousPivotIndex, pivotBarIndex, sortedColour);
           previousPivotIndex = pivotBarIndex;
         } else {
@@ -76,13 +75,16 @@ function drawAnimation(
           firstBarStyle.backgroundColor = colour;
           secondBarStyle.backgroundColor = colour;
         }
-      }, i * 1);
+      }, i * animationSpeed);
     } else {
       setTimeout(() => {
+        if (i === animations.length - 1) {
+          updatePivotColour(arrayBars, 0, arrayBars.length, sortedColour);
+        }
         const [firstBarIndex, newHeight] = animations[i];
         const firstBarStyle = arrayBars[firstBarIndex].style;
         firstBarStyle.height = `${newHeight}px`;
-      }, i * 1);
+      }, i * animationSpeed);
     }
   }
 }
