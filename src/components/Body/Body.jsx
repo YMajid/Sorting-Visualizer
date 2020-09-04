@@ -23,11 +23,10 @@ class SortingVisualizer extends React.Component {
 
   resetValuesArray() {
     const array = [];
-    const minHeight = 100;
+    const minHeight = window.innerHeight <= 500 ? 1 : 100;
     const maxHeight = window.innerHeight - 200;
-    const maxBars = Math.floor((window.innerWidth * 5) / 192);
-    console.log(maxBars);
-    for (let i = 0; i < maxBars; i++) {
+    const barsCount = Math.floor((window.innerWidth * 5) / 192);
+    for (let i = 0; i < barsCount; i++) {
       array.push(generateRandomInteger(minHeight, maxHeight));
     }
     this.setState({ valuesArray: array, sorted: false });
@@ -84,11 +83,8 @@ class SortingVisualizer extends React.Component {
   }
 
   render() {
-    console.log(window.innerWidth);
-    console.log(window.innerHeight);
     const array = this.state.valuesArray;
     const sorted = this.state.sorted;
-    console.log(array);
     return (
       <div className="array-container">
         {array.map((value, index) => (
