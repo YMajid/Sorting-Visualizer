@@ -1,6 +1,7 @@
 import swap from './Swap';
 
 function bubbleSort(array, animationSpeed, barsColour, pivotColour, selectionColour, sortedColour) {
+  console.log('clicked');
   if (array.length <= 1) return array;
 
   const animations = [];

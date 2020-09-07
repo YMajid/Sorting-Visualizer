@@ -1,12 +1,14 @@
 import React from 'react';
-import SortingVisualizer from './components/Body/Body';
+import Body from './components/Body/BodyContainer';
+import Footer from './components/Footer/Footer';
 import './App.css';
 
 const App = () => {
   return (
     <div className="app">
       <h1>Sorting Visualizer</h1>
-      <SortingVisualizer></SortingVisualizer>
+      <Body></Body>
+      <Footer></Footer>
     </div>
   );
 };
