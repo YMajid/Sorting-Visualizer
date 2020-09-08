@@ -1,14 +1,9 @@
-import React from 'react';
 import './Body.css';
+import React from 'react';
 
 class Body extends React.Component {
   constructor(props) {
     super(props);
-  }
-
-  componentDidMount() {
-    const { generateValuesArray } = this.props;
-    generateValuesArray();
   }
 
   render() {

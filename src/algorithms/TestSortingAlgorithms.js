@@ -3,11 +3,8 @@ function testSortingAlgorithms(originalArray, sortedArray) {
   const areEqual = arraysAreEqual(jsSortedArray, sortedArray);
   if (!areEqual) {
     alert('Sorting algorithm is not returning the correct result.');
-    console.log('arraysEqual: ', areEqual);
-    return;
-  } else {
-    console.log('arraysEqual: ', areEqual);
   }
+  console.log('arraysEqual: ', areEqual);
 }
 
 function arraysAreEqual(firstArray, secondArray) {

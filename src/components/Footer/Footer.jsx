@@ -1,56 +1,35 @@
-import React, { Component } from 'react';
 import './Footer.css';
-import bubbleSort from '../../algorithms/BubbleSort';
+import React from 'react';
 
-class Footer extends Component {
+class Footer extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  bubbleSort(array, sorted) {
-    console.log(array);
-    console.log(sorted);
-    if (array == null || sorted) return;
-    const sortedArray = bubbleSort(
-      array.slice(),
-      animationSpeedMS,
-      barsColour,
-      greenColour,
-      redColour,
-      blueColour
-    );
+  componentDidMount() {
+    const { generateNewArray } = this.props;
+    generateNewArray();
   }
 
   render() {
-    const { array, isSorted } = this.props;
-    console.log(array);
+    const { generateNewArray, bubbleSort, mergeSort, quickSort, array, isSorted } = this.props;
     return (
       <div id="footer" style={this.footerStyle}>
-        <a id="generateArray" className="button hvr-fade" onClick={this.props.generateArray}>
+        <a id="generateArray" className="button hvr-fade" onClick={() => generateNewArray()}>
           Generate New Array
         </a>
-        <a
-          id="bubbleSort"
-          className="button hvr-fade"
-          onClick={() => this.bubbleSort(array, isSorted)}
-        >
+        <a id="bubbleSort" className="button hvr-fade" onClick={() => bubbleSort(array, isSorted)}>
           Bubble Sort
         </a>
-        <a id="mergeSort" className="button hvr-fade" onClick={this.props.mergeSort}>
+        <a id="mergeSort" className="button hvr-fade" onClick={() => mergeSort(array, isSorted)}>
           Merge Sort
         </a>
-        <a id="quickSort" className="button hvr-fade" onClick={this.props.quickSort}>
+        <a id="quickSort" className="button hvr-fade" onClick={() => quickSort(array, isSorted)}>
           Quick Sort
         </a>
       </div>
     );
   }
 }
-
-const animationSpeedMS = 10;
-const greenColour = '#29D8A8';
-const blueColour = '#227EE1';
-const redColour = '#FF6263';
-const barsColour = '#282a2b';
 
 export default Footer;

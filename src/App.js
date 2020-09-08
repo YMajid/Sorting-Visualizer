@@ -1,6 +1,6 @@
 import React from 'react';
-import Body from './components/Body/BodyContainer';
-import Footer from './components/Footer/Footer';
+import Body from './containers/BodyContainer';
+import Footer from './containers/FooterContainer';
 import './App.css';
 
 const App = () => {

@@ -1,6 +1,6 @@
 import { combineReducers, createStore } from 'redux';
-import { array } from './array/arrayReducer';
-import { isSorted } from './sorted/sortedReducer';
+import { array } from './arrayReducer';
+import { isSorted } from './sortedReducer';
 
 const reducers = combineReducers({
   array,
