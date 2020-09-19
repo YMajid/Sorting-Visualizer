@@ -38,6 +38,7 @@ const mapDispatchToProps = () => (dispatch) => ({
       redColour,
       blueColour
     );
+    dispatch(setSorted(true));
     testSortingAlgorithms(array, sortedArray);
   },
   mergeSort: (array, sorted) => {
@@ -49,6 +50,7 @@ const mapDispatchToProps = () => (dispatch) => ({
       redColour,
       blueColour
     );
+    dispatch(setSorted(true));
     testSortingAlgorithms(array, sortedArray);
   },
   quickSort: (array, sorted) => {
@@ -61,6 +63,7 @@ const mapDispatchToProps = () => (dispatch) => ({
       redColour,
       blueColour
     );
+    dispatch(setSorted(true));
     testSortingAlgorithms(array, sortedArray);
   },
 });
